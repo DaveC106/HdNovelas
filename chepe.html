@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chepe Fortuna - Todos los Episodios</title>
+    <link rel="stylesheet" href="stylesnovelas.css">
+</head>
+<body>
+    <div class="container">
+        <div class="poster-container">
+            <img src="posterchepe.png" alt="Poster Chepe Fortuna" class="poster">
+        </div>
+
+        <div class="server-selection">
+            <h2>Selecciona el servidor preferido</h2>
+            <div class="server-buttons">
+                <button id="streamtape-btn" class="server-btn active">Streamtape</button>
+                <button id="doods-btn" class="server-btn">DoodsStream</button>
+            </div>
+        </div>
+
+        <div class="video-container">
+            <iframe id="video-frame" width="600" height="480" src="" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
+        </div>
+
+        <div class="episode-navigation">
+            <button id="prev-episode" class="nav-btn" disabled>
+                <span class="arrow">←</span> Episodio anterior
+            </button>
+            <span id="current-episode" class="episode-number">Episodio 1</span>
+            <button id="next-episode" class="nav-btn">
+                Episodio siguiente <span class="arrow">→</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Cargar los datos de los episodios
+        fetch('chepe.json')
+            .then(response => response.json())
+            .then(data => {
+                const episodes = data;
+                let currentEpisode = 1;
+                let currentServer = 'stream'; // 'stream' o 'doods'
+
+                // Elementos del DOM
+                const videoFrame = document.getElementById('video-frame');
+                const currentEpisodeDisplay = document.getElementById('current-episode');
+                const prevBtn = document.getElementById('prev-episode');
+                const nextBtn = document.getElementById('next-episode');
+                const streamtapeBtn = document.getElementById('streamtape-btn');
+                const doodsBtn = document.getElementById('doods-btn');
+
+                // Cargar episodio inicial
+                loadEpisode(currentEpisode);
+
+                // Funciones
+                function loadEpisode(episodeNumber) {
+                    const episode = episodes[episodeNumber];
+                    if (!episode) return;
+
+                    const source = currentServer === 'stream' ? episode.stream : episode.doods;
+                    videoFrame.src = source;
+                    currentEpisodeDisplay.textContent = `Episodio ${episodeNumber}`;
+
+                    // Habilitar/deshabilitar botones de navegación
+                    prevBtn.disabled = episodeNumber === 1;
+                    nextBtn.disabled = episodeNumber === 151;
+                }
+
+                function changeServer(server) {
+                    currentServer = server;
+                    loadEpisode(currentEpisode);
+                    
+                    // Actualizar botones activos
+                    if (server === 'stream') {
+                        streamtapeBtn.classList.add('active');
+                        doodsBtn.classList.remove('active');
+                    } else {
+                        streamtapeBtn.classList.remove('active');
+                        doodsBtn.classList.add('active');
+                    }
+                }
+
+                // Event listeners
+                prevBtn.addEventListener('click', () => {
+                    if (currentEpisode > 1) {
+                        currentEpisode--;
+                        loadEpisode(currentEpisode);
+                    }
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    if (currentEpisode < 151) {
+                        currentEpisode++;
+                        loadEpisode(currentEpisode);
+                    }
+                });
+
+                streamtapeBtn.addEventListener('click', () => changeServer('stream'));
+                doodsBtn.addEventListener('click', () => changeServer('doods'));
+
+                // Hacer que los botones de navegación funcionen con teclado
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft' && !prevBtn.disabled) {
+                        prevBtn.click();
+                    } else if (e.key === 'ArrowRight' && !nextBtn.disabled) {
+                        nextBtn.click();
+                    }
+                });
+            })
+            .catch(error => console.error('Error al cargar los episodios:', error));
+    </script>
+</body>
+</html>
