@@ -8,42 +8,39 @@
 </head>
 <body>
     <div class="container">
-       <div class="header">
-    <div class="poster-selector-container">
-        <div class="poster-container">
+        <!-- Encabezado compacto -->
+        <div class="compact-header">
             <img src="posterchepe.png" alt="Poster Chepe Fortuna" class="poster">
-        </div>
-        
-        <div class="episode-selector-container">
             <select id="episode-selector" class="episode-selector">
                 <!-- Opciones se llenarán con JavaScript -->
             </select>
         </div>
-    </div>
-</div>
 
-        <div class="server-selection">
-            <h2>Selecciona el servidor preferido</h2>
+        <!-- Video inmediatamente visible -->
+        <div class="video-container">
+            <iframe id="video-frame" width="800" height="450" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Controles mejorados -->
+        <div class="controls">
             <div class="server-buttons">
+                <h3>Servidor:</h3>
                 <button id="streamtape-btn" class="server-btn">Streamtape</button>
                 <button id="doods-btn" class="server-btn active">DoodsStream</button>
             </div>
-        </div>
-
-        <div class="video-container">
-            <iframe id="video-frame" width="600" height="480" src="" scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
-        </div>
-
-        <div class="episode-navigation">
-            <button id="prev-episode" class="nav-btn" disabled>
-                <span class="arrow">←</span> Episodio anterior
-            </button>
-            <span id="current-episode" class="episode-number">Episodio 1</span>
-            <button id="next-episode" class="nav-btn">
-                Episodio siguiente <span class="arrow">→</span>
-            </button>
+            
+            <div class="episode-navigation">
+                <button id="prev-episode" class="nav-btn" disabled>
+                    <span class="arrow">←</span> Anterior
+                </button>
+                <span id="current-episode" class="episode-number">Episodio 1</span>
+                <button id="next-episode" class="nav-btn">
+                    Siguiente <span class="arrow">→</span>
+                </button>
+            </div>
         </div>
     </div>
+
 
     <script>
         // Cargar los datos de los episodios
