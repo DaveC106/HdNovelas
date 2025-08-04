@@ -10,16 +10,11 @@
 <body>
   <div class="wrapper">
     <header class="header">
-      <a href="index.html" class="logo-link">
-        <div class="logo">
-          <span class="logo-highlight">HD</span> Novelas
-        </div>
-      </a>
-      <button class="hamburger" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+     <a href="index.html" class="logo-link">
+      <div class="logo">
+        <span class="logo-highlight">HD</span> Novelas
+      </div>
+     </a>
       <div class="nav">
         <button class="nav-btn active" data-category="all">Todas</button>
         <button class="nav-btn" data-category="popular">Populares</button>
@@ -46,6 +41,7 @@
           <p class="serie-info">151 episodios</p>
         </a>
         
+        <!-- Puedes agregar más series así -->
         <div class="serie-card coming-soon" data-title="nueva serie">
           <div class="serie-poster-container">
             <div class="placeholder-poster">Próximamente</div>
@@ -56,16 +52,17 @@
       </div>
     </main>
   </div>
-
-  <div class="feedback-container">
-    <div class="feedback-box">
-      <h3>Buzón de Sugerencias y Mejoras</h3>
-      <div class="feedback-content">
-        <textarea placeholder="¿Qué serie te gustaría ver? ¿Cómo podemos mejorar? ¡Déjanos tu opinión!"></textarea>
-        <button class="feedback-btn">Enviar</button>
+     <!-- Buzón de sugerencias mejorado -->
+    <div class="feedback-container">
+      <div class="feedback-box">
+        <h3>Buzón de Sugerencias y Mejoras</h3>
+        <div class="feedback-content">
+          <textarea placeholder="¿Qué serie te gustaría ver? ¿Cómo podemos mejorar? ¡Déjanos tu opinión!"></textarea>
+          <button class="feedback-btn">Enviar</button>
+        </div>
       </div>
     </div>
-  </div>
+
 
   <footer class="footer">
     <div class="footer-content">
@@ -94,6 +91,7 @@ function filterSeries() {
     const title = card.dataset.title.toLowerCase();
     const categories = card.dataset.categories ? card.dataset.categories.split(',') : [];
     
+    // Verificar si coincide con la búsqueda y categoría
     const matchesSearch = title.includes(searchTerm);
     const matchesCategory = activeCategory === 'all' || categories.includes(activeCategory);
     
@@ -105,6 +103,7 @@ function filterSeries() {
     }
   });
   
+  // Mostrar mensaje si no hay resultados
   const noResultsMessage = document.querySelector('.no-results');
   if (!hasVisibleSeries) {
     if (!noResultsMessage) {
@@ -124,10 +123,6 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     this.classList.add('active');
     filterSeries();
-    if (window.innerWidth <= 768) {
-      document.querySelector('.nav').classList.remove('active');
-      document.querySelector('.hamburger').classList.remove('active');
-    }
   });
 });
 
@@ -137,7 +132,7 @@ document.querySelector('.search-input').addEventListener('keyup', function(e) {
   if (e.key === 'Enter') filterSeries();
 });
 
-// Evento para el feedback
+// Evento para el feedback (simulado)
 document.querySelector('.feedback-btn').addEventListener('click', function() {
   const textarea = document.querySelector('.feedback-box textarea');
   if (textarea.value.trim()) {
@@ -148,19 +143,17 @@ document.querySelector('.feedback-btn').addEventListener('click', function() {
   }
 });
 
-// Evento para el hamburger menu
-document.querySelector('.hamburger').addEventListener('click', function() {
-  this.classList.toggle('active');
-  document.querySelector('.nav').classList.toggle('active');
-});
-
 // Mostrar todas las series al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
+  // Asegurarse que "Todas" está activa al inicio
   document.querySelector('.nav-btn[data-category="all"]').classList.add('active');
+  
+  // Ocultar series "próximamente" (puedes eliminarlo si quieres mostrarlas)
   document.querySelectorAll('.coming-soon').forEach(el => {
     el.style.display = 'none';
   });
 });
 </script>
+
 </body>
 </html>
