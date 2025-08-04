@@ -4,29 +4,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HD Novelas</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="stylesnovelas.css">
 </head>
 <body>
-  <header class="header">
-    <div class="logo">HD Novelas</div>
-    <div class="nav">
-      <button class="btn-populares">Populares</button>
-      <input type="text" placeholder="Buscar..." class="buscador">
-    </div>
-  </header>
+  <div class="wrapper">
+    <header class="header">
+      <div class="logo">
+        <span class="logo-highlight">HD</span> Novelas
+      </div>
+      <div class="nav">
+        <button class="nav-btn active">Populares</button>
+        <button class="nav-btn">Recientes</button>
+        <button class="nav-btn">Todas</button>
+        <div class="search-container">
+          <input type="text" placeholder="Buscar novelas..." class="search-input">
+          <button class="search-btn">🔍</button>
+        </div>
+      </div>
+    </header>
 
-  <main class="contenido">
-    <h2 class="catalogo">Catálogo</h2>
-   <a href="chepe.html" class="serie-link">
-  <div class="serie">
-    <img src="posterchepe.png" alt="Chepe Fortuna">
-    <p>Chepe Fortuna</p>
+    <main class="content">
+      <h2 class="section-title">
+        <span class="title-icon">📺</span> Catálogo Completo
+      </h2>
+      
+      <div class="series-grid">
+        <a href="chepe.html" class="serie-card">
+          <div class="serie-poster-container">
+            <img src="posterchepe.png" alt="Chepe Fortuna" class="serie-poster">
+            <div class="serie-badge">Nuevo</div>
+          </div>
+          <h3 class="serie-title">Chepe Fortuna</h3>
+          <p class="serie-info">151 episodios</p>
+        </a>
+        
+        <!-- Puedes agregar más series así -->
+        <div class="serie-card coming-soon">
+          <div class="serie-poster-container">
+            <div class="placeholder-poster">Próximamente</div>
+          </div>
+          <h3 class="serie-title">Nueva Serie</h3>
+          <p class="serie-info">En producción</p>
+        </div>
+      </div>
+    </main>
   </div>
-</a>
-  </main>
+
   <footer class="footer">
-    <p>HD Novelas 2025</p>
-    <small>Esta página no transmite contenido, todo proviene de enlaces externos.</small>
+    <div class="footer-content">
+      <p class="footer-logo">HD <span>Novelas</span> 2025</p>
+      <div class="footer-disclaimer">
+        <small>Esta página no almacena ni transmite contenido audiovisual</small>
+        <small>Todos los enlaces provienen de servidores externos</small>
+      </div>
+      <div class="footer-links">
+        <a href="#" class="footer-link">Términos</a>
+        <a href="#" class="footer-link">DMCA</a>
+        <a href="#" class="footer-link">Contacto</a>
+      </div>
+    </div>
   </footer>
 </body>
 </html>
