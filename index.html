@@ -10,14 +10,14 @@
   <div class="wrapper">
     <header class="header">
      <a href="index.html" class="logo-link">
-  <div class="logo">
-    <span class="logo-highlight">HD</span> Novelas
-  </div>
-</a>
+      <div class="logo">
+        <span class="logo-highlight">HD</span> Novelas
+      </div>
+     </a>
       <div class="nav">
-        <button class="nav-btn active">Populares</button>
-        <button class="nav-btn">Recientes</button>
-        <button class="nav-btn">Todas</button>
+        <button class="nav-btn active" data-category="all">Todas</button>
+        <button class="nav-btn" data-category="popular">Populares</button>
+        <button class="nav-btn" data-category="recent">Recientes</button>
         <div class="search-container">
           <input type="text" placeholder="Buscar novelas..." class="search-input">
           <button class="search-btn">🔍</button>
@@ -31,7 +31,7 @@
       </h2>
       
       <div class="series-grid">
-        <a href="chepe.html" class="serie-card">
+        <a href="chepe.html" class="serie-card" data-title="chepe fortuna" data-categories="popular,recent">
           <div class="serie-poster-container">
             <img src="posterchepe.png" alt="Chepe Fortuna" class="serie-poster">
             <div class="serie-badge">Nuevo</div>
@@ -41,7 +41,7 @@
         </a>
         
         <!-- Puedes agregar más series así -->
-        <div class="serie-card coming-soon">
+        <div class="serie-card coming-soon" data-title="nueva serie">
           <div class="serie-poster-container">
             <div class="placeholder-poster">Próximamente</div>
           </div>
@@ -73,6 +73,83 @@
       </div>
     </div>
   </footer>
-   <script src="script.js"></script>
+
+<script>
+// Función para mostrar/ocultar series basado en búsqueda y categoría
+function filterSeries() {
+  const searchTerm = document.querySelector('.search-input').value.toLowerCase();
+  const activeCategory = document.querySelector('.nav-btn.active').dataset.category;
+  const seriesCards = document.querySelectorAll('.serie-card:not(.coming-soon)');
+  
+  let hasVisibleSeries = false;
+  
+  seriesCards.forEach(card => {
+    const title = card.dataset.title.toLowerCase();
+    const categories = card.dataset.categories ? card.dataset.categories.split(',') : [];
+    
+    // Verificar si coincide con la búsqueda y categoría
+    const matchesSearch = title.includes(searchTerm);
+    const matchesCategory = activeCategory === 'all' || categories.includes(activeCategory);
+    
+    if (matchesSearch && matchesCategory) {
+      card.style.display = 'block';
+      hasVisibleSeries = true;
+    } else {
+      card.style.display = 'none';
+    }
+  });
+  
+  // Mostrar mensaje si no hay resultados
+  const noResultsMessage = document.querySelector('.no-results');
+  if (!hasVisibleSeries) {
+    if (!noResultsMessage) {
+      const message = document.createElement('p');
+      message.className = 'no-results';
+      message.textContent = 'No se encontraron series';
+      document.querySelector('.series-grid').appendChild(message);
+    }
+  } else if (noResultsMessage) {
+    noResultsMessage.remove();
+  }
+}
+
+// Eventos para los botones de categoría
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    filterSeries();
+  });
+});
+
+// Evento para el buscador
+document.querySelector('.search-btn').addEventListener('click', filterSeries);
+document.querySelector('.search-input').addEventListener('keyup', function(e) {
+  if (e.key === 'Enter') filterSeries();
+});
+
+// Evento para el feedback (simulado)
+document.querySelector('.feedback-btn').addEventListener('click', function() {
+  const textarea = document.querySelector('.feedback-box textarea');
+  if (textarea.value.trim()) {
+    alert('¡Gracias por tu sugerencia!');
+    textarea.value = '';
+  } else {
+    alert('Por favor escribe tu sugerencia.');
+  }
+});
+
+// Mostrar todas las series al cargar la página
+document.addEventListener('DOMContentLoaded', function() {
+  // Asegurarse que "Todas" está activa al inicio
+  document.querySelector('.nav-btn[data-category="all"]').classList.add('active');
+  
+  // Ocultar series "próximamente" (puedes eliminarlo si quieres mostrarlas)
+  document.querySelectorAll('.coming-soon').forEach(el => {
+    el.style.display = 'none';
+  });
+});
+</script>
+
 </body>
 </html>
