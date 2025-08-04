@@ -44,6 +44,15 @@ body {
     color: #4CAF50;
 }
 
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+.logo-link:hover .logo {
+  opacity: 0.9;
+}
 /* Navegación */
 .nav {
     display: flex;
