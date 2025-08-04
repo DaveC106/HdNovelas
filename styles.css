@@ -331,7 +331,7 @@ body {
 /* Feedback Box */
  /* Estilos adicionales para el buzón */
     .feedback-container {
-      background: #1e1e1e;
+      background: #121212;
       padding: 2rem 0;
       margin-top: auto; /* Esto lo mantiene pegado abajo */
       border-top: 1px solid #333;
