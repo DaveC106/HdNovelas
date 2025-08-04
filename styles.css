@@ -72,3 +72,19 @@ body {
   font-size: 0.9rem;
   color: #aaa;
 }
+
+.serie-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+.serie {
+  /* Tus estilos existentes */
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.serie:hover {
+  transform: scale(1.05);
+}
