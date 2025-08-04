@@ -9,12 +9,22 @@
 </head>
 <body>
     <div class="container">
+        <!-- Logo HD Novelas -->
+        <div class="header-logo">
+            <a href="index.html" class="logo-link">HD <span>Novelas</span></a>
+        </div>
+
         <!-- Encabezado compacto -->
         <div class="compact-header">
             <img src="posterchepe.png" alt="Poster Chepe Fortuna" class="poster">
-            <select id="episode-selector" class="episode-selector">
-                <!-- Opciones se llenarán con JavaScript -->
-            </select>
+            <div class="episode-info">
+                <select id="episode-selector" class="episode-selector">
+                    <!-- Opciones se llenarán con JavaScript -->
+                </select>
+                <p class="episode-description">
+                    Chepe, un carismático pescador, y Niña Cabrales, una ecologista de alta sociedad, unen fuerzas para salvar su barrio. Sin saberlo, los une un pasado oculto que cambiará sus vidas y desatará una historia de amor, poder y destino.
+                </p>
+            </div>
         </div>
 
         <!-- Video inmediatamente visible -->
@@ -43,18 +53,18 @@
     </div>
 
     <footer class="footer">
-    <div class="footer-content">
-      <p class="footer-logo">HD <span>Novelas</span> 2025</p>
-      <div class="footer-disclaimer">
-        <small>Esta página no almacena ni transmite contenido audiovisual</small>
-        <small>Todos los enlaces provienen de servidores externos</small>
-      </div>
-      <div class="footer-links">
-         <a href="terms.html" class="footer-link">Términos y políticas</a>
-        <a href="#" class="footer-link">Contacto</a>
-      </div>
-    </div>
-  </footer>
+        <div class="footer-content">
+            <p class="footer-logo">HD <span>Novelas</span> 2025</p>
+            <div class="footer-disclaimer">
+                <small>Esta página no almacena ni transmite contenido audiovisual</small>
+                <small>Todos los enlaces provienen de servidores externos</small>
+            </div>
+            <div class="footer-links">
+                <a href="terms.html" class="footer-link">Términos y políticas</a>
+                <a href="#" class="footer-link">Contacto</a>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // Cargar los datos de los episodios
@@ -63,7 +73,7 @@
             .then(data => {
                 const episodes = data;
                 let currentEpisode = 1;
-                let currentServer = 'doods'; // Cambiado a 'doods' por defecto
+                let currentServer = 'doods';
 
                 // Elementos del DOM
                 const videoFrame = document.getElementById('video-frame');
@@ -94,7 +104,7 @@
                     videoFrame.src = source;
                     currentEpisodeDisplay.textContent = `Episodio ${episodeNumber}`;
 
-                    // Actualizar selector (excluyendo el episodio actual)
+                    // Actualizar selector
                     episodeSelector.value = episodeNumber;
                     
                     // Habilitar/deshabilitar botones de navegación

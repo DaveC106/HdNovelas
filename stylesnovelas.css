@@ -16,11 +16,27 @@ body {
     padding: 15px;
 }
 
+/* Logo HD Novelas */
+.header-logo {
+    margin-bottom: 15px;
+}
+
+.logo-link {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+
+.logo-link span {
+    color: #4CAF50;
+}
+
 /* Encabezado compacto */
 .compact-header {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    align-items: flex-start;
     gap: 10px;
     margin-bottom: 15px;
 }
@@ -29,6 +45,13 @@ body {
     width: 120px;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.episode-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
 }
 
 .episode-selector {
@@ -41,6 +64,12 @@ body {
     font-size: 14px;
     text-align: center;
     cursor: pointer;
+}
+
+.episode-description {
+    font-size: 14px;
+    color: #aaa;
+    line-height: 1.4;
 }
 
 /* Video rectangular prominente */
@@ -150,6 +179,15 @@ body {
     
     .server-buttons {
         flex-wrap: wrap;
+    }
+    
+    .compact-header {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .episode-info {
+        align-items: center;
     }
 }
 
