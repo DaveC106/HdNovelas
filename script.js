@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
             poster: "posterchepe.png",
             link: "chepe.html",
             isNew: true,
-            category: "popular"
+            categories: ["popular", "recent"] // Ahora puede pertenecer a múltiples categorías
         }
     ];
 
@@ -22,7 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterSeries(searchTerm = '', category = 'all') {
         return seriesData.filter(serie => {
             const matchesSearch = serie.title.toLowerCase().includes(searchTerm.toLowerCase());
-            const matchesCategory = category === 'all' || serie.category === category;
+            
+            // Modificado para manejar múltiples categorías
+            const matchesCategory = category === 'all' || 
+                                  (serie.categories && serie.categories.includes(category));
+            
             return matchesSearch && matchesCategory;
         });
     }
@@ -54,12 +58,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Evento de búsqueda
     function handleSearch() {
         const searchTerm = searchInput.value.trim();
-        const activeCategory = document.querySelector('.nav-btn.active').textContent.toLowerCase();
+        const activeBtn = document.querySelector('.nav-btn.active');
+        const activeCategory = activeBtn ? activeBtn.textContent.toLowerCase() : 'all';
         const filteredSeries = filterSeries(searchTerm, activeCategory);
         renderSeries(filteredSeries);
     }
 
+    // Configuración de eventos
     searchBtn.addEventListener('click', handleSearch);
+    
     searchInput.addEventListener('keyup', function(e) {
         if (e.key === 'Enter') handleSearch();
     });
@@ -75,10 +82,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Feedback box (simulado)
     feedbackBtn.addEventListener('click', function() {
-        alert('¡Gracias por tu sugerencia! La tomaremos en cuenta para futuras actualizaciones.');
-        document.querySelector('.feedback-box textarea').value = '';
+        const feedbackText = document.querySelector('.feedback-box textarea').value.trim();
+        if (feedbackText) {
+            alert('¡Gracias por tu sugerencia! La tomaremos en cuenta para futuras actualizaciones.');
+            document.querySelector('.feedback-box textarea').value = '';
+        } else {
+            alert('Por favor escribe tu sugerencia antes de enviar.');
+        }
     });
 
-    // Carga inicial
+    // Carga inicial - Mostrar todas las series
     renderSeries(seriesData);
 });
