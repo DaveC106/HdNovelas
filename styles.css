@@ -358,9 +358,7 @@ body {
       gap: 10px;
     }
     
-    .feedback-box h3::before {
-      content: "✉️";
-    }
+  
     
     .feedback-content {
       display: flex;
