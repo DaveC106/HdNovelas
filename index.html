@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HD Novelas</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chepe Fortuna - Todos los Episodios</title>
+    <link rel="stylesheet" href="stylesnovelas.css">
+    <link rel="icon" type="image/png" href="favicon.png">
 </head>
 <body>
-  <div class="wrapper">
-    <header class="header">
-     <a href="index.html" class="logo-link">
-      <div class="logo">
-        <span class="logo-highlight">HD</span> Novelas
-      </div>
-     </a>
-      <div class="nav">
-        <button class="nav-btn active" data-category="all">Todas</button>
-        <button class="nav-btn" data-category="popular">Populares</button>
-        <button class="nav-btn" data-category="recent">Recientes</button>
-        <div class="search-container">
-          <input type="text" placeholder="Buscar novelas..." class="search-input">
-          <button class="search-btn">🔍</button>
+    <div class="container">
+        <!-- Logo HD Novelas -->
+        <div class="header-logo">
+            <a href="index.html" class="logo-link">HD <span>Novelas</span></a>
         </div>
-      </div>
-    </header>
 
-    <main class="content">
-      <h2 class="section-title">
-        <span class="title-icon">📺</span> Catálogo Completo
-      </h2>
-      
-      <div class="series-grid">
-        <a href="chepe.html" class="serie-card" data-title="chepe fortuna" data-categories="popular,recent">
-          <div class="serie-poster-container">
-            <img src="posterchepe.png" alt="Chepe Fortuna" class="serie-poster">
-            <div class="serie-badge">Nuevo</div>
-          </div>
-          <h3 class="serie-title">Chepe Fortuna</h3>
-          <p class="serie-info">151 episodios</p>
-        </a>
-        
-        <!-- Puedes agregar más series así -->
-        <div class="serie-card coming-soon" data-title="nueva serie">
-          <div class="serie-poster-container">
-            <div class="placeholder-poster">Próximamente</div>
-          </div>
-          <h3 class="serie-title">Nueva Serie</h3>
-          <p class="serie-info">En producción</p>
+        <!-- Encabezado compacto -->
+        <div class="compact-header">
+            <img src="posterchepe.png" alt="Poster Chepe Fortuna" class="poster">
+            <div class="episode-info">
+                <select id="episode-selector" class="episode-selector">
+                    <!-- Opciones se llenarán con JavaScript -->
+                </select>
+                <p>Chepe Fortuna</p>
+                <p class="episode-description">
+                    Chepe, un carismático pescador, y Niña Cabrales, una ecologista de alta sociedad, unen fuerzas para salvar su barrio. Sin saberlo, los une un pasado oculto que cambiará sus vidas y desatará una historia de amor, poder y destino.
+                </p>
+            </div>
         </div>
-      </div>
-    </main>
-  </div>
+
+        <!-- Video inmediatamente visible -->
+        <div class="video-container">
+            <iframe id="video-frame" width="800" height="450" src="" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Controles mejorados -->
+        <div class="controls">
+            <div class="server-buttons">
+                <h3>Servidor:</h3>
+                <button id="streamtape-btn" class="server-btn">Streamtape</button>
+                <button id="doods-btn" class="server-btn active">DoodsStream</button>
+            </div>
+            
+            <div class="episode-navigation">
+                <button id="prev-episode" class="nav-btn" disabled>
+                    <span class="arrow">←</span> Anterior
+                </button>
+                <span id="current-episode" class="episode-number">Episodio 1</span>
+                <button id="next-episode" class="nav-btn">
+                    Siguiente <span class="arrow">→</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
      <!-- Buzón de sugerencias mejorado -->
     <div class="feedback-container">
       <div class="feedback-box">
@@ -64,96 +65,116 @@
     </div>
 
 
-  <footer class="footer">
-    <div class="footer-content">
-      <p class="footer-logo">HD <span>Novelas</span> 2025</p>
-      <div class="footer-disclaimer">
-        <small>Esta página no almacena ni transmite contenido audiovisual</small>
-        <small>Todos los enlaces provienen de servidores externos</small>
-      </div>
-      <div class="footer-links">
-        <a href="terms.html" class="footer-link">Términos y políticas</a>
-        <a href="#" class="footer-link">Contacto</a>
-      </div>
-    </div>
-  </footer>
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-logo">HD <span>Novelas</span> 2025</p>
+            <div class="footer-disclaimer">
+                <small>Esta página no almacena ni transmite contenido audiovisual</small>
+                <small>Todos los enlaces provienen de servidores externos</small>
+            </div>
+            <div class="footer-links">
+                <a href="terms.html" class="footer-link">Términos y políticas</a>
+                <a href="#" class="footer-link">Contacto</a>
+            </div>
+        </div>
+    </footer>
 
-<script>
-// Función para mostrar/ocultar series basado en búsqueda y categoría
-function filterSeries() {
-  const searchTerm = document.querySelector('.search-input').value.toLowerCase();
-  const activeCategory = document.querySelector('.nav-btn.active').dataset.category;
-  const seriesCards = document.querySelectorAll('.serie-card:not(.coming-soon)');
-  
-  let hasVisibleSeries = false;
-  
-  seriesCards.forEach(card => {
-    const title = card.dataset.title.toLowerCase();
-    const categories = card.dataset.categories ? card.dataset.categories.split(',') : [];
-    
-    // Verificar si coincide con la búsqueda y categoría
-    const matchesSearch = title.includes(searchTerm);
-    const matchesCategory = activeCategory === 'all' || categories.includes(activeCategory);
-    
-    if (matchesSearch && matchesCategory) {
-      card.style.display = 'block';
-      hasVisibleSeries = true;
-    } else {
-      card.style.display = 'none';
-    }
-  });
-  
-  // Mostrar mensaje si no hay resultados
-  const noResultsMessage = document.querySelector('.no-results');
-  if (!hasVisibleSeries) {
-    if (!noResultsMessage) {
-      const message = document.createElement('p');
-      message.className = 'no-results';
-      message.textContent = 'No se encontraron series';
-      document.querySelector('.series-grid').appendChild(message);
-    }
-  } else if (noResultsMessage) {
-    noResultsMessage.remove();
-  }
-}
+    <script>
+        // Cargar los datos de los episodios
+        fetch('chepe.json')
+            .then(response => response.json())
+            .then(data => {
+                const episodes = data;
+                let currentEpisode = 1;
+                let currentServer = 'doods';
 
-// Eventos para los botones de categoría
-document.querySelectorAll('.nav-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-    filterSeries();
-  });
-});
+                // Elementos del DOM
+                const videoFrame = document.getElementById('video-frame');
+                const currentEpisodeDisplay = document.getElementById('current-episode');
+                const prevBtn = document.getElementById('prev-episode');
+                const nextBtn = document.getElementById('next-episode');
+                const streamtapeBtn = document.getElementById('streamtape-btn');
+                const doodsBtn = document.getElementById('doods-btn');
+                const episodeSelector = document.getElementById('episode-selector');
 
-// Evento para el buscador
-document.querySelector('.search-btn').addEventListener('click', filterSeries);
-document.querySelector('.search-input').addEventListener('keyup', function(e) {
-  if (e.key === 'Enter') filterSeries();
-});
+                // Llenar el selector de episodios
+                for (let i = 1; i <= 151; i++) {
+                    const option = document.createElement('option');
+                    option.value = i;
+                    option.textContent = `Episodio ${i}`;
+                    episodeSelector.appendChild(option);
+                }
 
-// Evento para el feedback (simulado)
-document.querySelector('.feedback-btn').addEventListener('click', function() {
-  const textarea = document.querySelector('.feedback-box textarea');
-  if (textarea.value.trim()) {
-    alert('¡Gracias por tu sugerencia!');
-    textarea.value = '';
-  } else {
-    alert('Por favor escribe tu sugerencia.');
-  }
-});
+                // Cargar episodio inicial
+                loadEpisode(currentEpisode);
 
-// Mostrar todas las series al cargar la página
-document.addEventListener('DOMContentLoaded', function() {
-  // Asegurarse que "Todas" está activa al inicio
-  document.querySelector('.nav-btn[data-category="all"]').classList.add('active');
-  
-  // Ocultar series "próximamente" (puedes eliminarlo si quieres mostrarlas)
-  document.querySelectorAll('.coming-soon').forEach(el => {
-    el.style.display = 'none';
-  });
-});
-</script>
+                // Funciones
+                function loadEpisode(episodeNumber) {
+                    const episode = episodes[episodeNumber];
+                    if (!episode) return;
 
+                    const source = currentServer === 'stream' ? episode.stream : episode.doods;
+                    videoFrame.src = source;
+                    currentEpisodeDisplay.textContent = `Episodio ${episodeNumber}`;
+
+                    // Actualizar selector
+                    episodeSelector.value = episodeNumber;
+                    
+                    // Habilitar/deshabilitar botones de navegación
+                    prevBtn.disabled = episodeNumber === 1;
+                    nextBtn.disabled = episodeNumber === 151;
+                }
+
+                function changeServer(server) {
+                    currentServer = server;
+                    loadEpisode(currentEpisode);
+                    
+                    // Actualizar botones activos
+                    if (server === 'stream') {
+                        streamtapeBtn.classList.add('active');
+                        doodsBtn.classList.remove('active');
+                    } else {
+                        streamtapeBtn.classList.remove('active');
+                        doodsBtn.classList.add('active');
+                    }
+                }
+
+                // Event listeners
+                prevBtn.addEventListener('click', () => {
+                    if (currentEpisode > 1) {
+                        currentEpisode--;
+                        loadEpisode(currentEpisode);
+                    }
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    if (currentEpisode < 151) {
+                        currentEpisode++;
+                        loadEpisode(currentEpisode);
+                    }
+                });
+
+                streamtapeBtn.addEventListener('click', () => changeServer('stream'));
+                doodsBtn.addEventListener('click', () => changeServer('doods'));
+
+                episodeSelector.addEventListener('change', (e) => {
+                    const selectedEpisode = parseInt(e.target.value);
+                    if (selectedEpisode !== currentEpisode) {
+                        currentEpisode = selectedEpisode;
+                        loadEpisode(currentEpisode);
+                    }
+                });
+
+                // Hacer que los botones de navegación funcionen con teclado
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft' && !prevBtn.disabled) {
+                        prevBtn.click();
+                    } else if (e.key === 'ArrowRight' && !nextBtn.disabled) {
+                        nextBtn.click();
+                    }
+                });
+            })
+            .catch(error => console.error('Error al cargar los episodios:', error));
+    </script>
 </body>
 </html>
